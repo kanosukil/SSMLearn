@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../../statics/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../statics/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="modal-title">
+        <h1 class="text-center">登录</h1>
+    </div>
+
+    <div class="modal-body">
+        <form class="form-group" action="ID" method="post"> <!-- showID.jsp 传值显示页面-->
+            <div class="form-group">
+                <label>用户名
+                    <input name="id" class="form-control" type="text" placeholder="请输入用户名">
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>密码
+                    <input name="pwd" class="form-control" type="password" placeholder="请输入密码">
+                </label>
+            </div>
+
+            <div class="text-right">
+                <button class="btn btn-primary" type="submit">登录</button>
+                <button class="btn btn-danger" data-dismiss="modal">取消</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script src="../../statics/js/jquery.min.js"></script>
+    <script src="../../statics/js/bootstrap.min.js"></script>
+
+</body>
+</html>

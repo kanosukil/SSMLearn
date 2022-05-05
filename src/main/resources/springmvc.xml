@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--自动扫描除controller注解标注的类-->
+    <context:component-scan base-package="com.bookstore.spring">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--    MyBatis 引入  -->
+    <!-- 1) 获得数据库连接池对象，并交由 spring 同一管理 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="org.sqlite.JDBC"/>
+        <property name="url" value="jdbc:sqlite:D:\code\code\Servlet\SpringBookStore\src\main\resources\DataBase\bookstore.db"/>
+
+        <!-- 数据池中最大连接数和最小连接数-->
+        <property name="maxActive" value="20"/>
+        <property name="minIdle" value="5"/>
+    </bean>
+
+
+    <!-- 2) 获取 SqlSessionFactory 对象，并交由 spring 管理-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入连接池
+        给 sqlsessionFactory 的属性 dataSource 赋值
+           ref="引用该 spring容器 中的另一个 bean的id"
+        -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 注入 映射文件 mapper
+        给 sqlsessionFactory 的属性 mapperLocation 赋值
+        value="映射文件 XXXmapper.xml 的相对路径"
+        -->
+        <property name="mapperLocations" value="classpath:mapper/**.xml"/>
+    </bean>
+
+    <!-- 3) 获取 SqlSession 对象，并交由 spring 管理  用SqlSessionTemplate得到的SqlSession可以不用我们自己操心事务的管理，以及关闭操作-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.bookstore.spring.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--管理整个SpringMVC的配置-->
+    <!--只管理controller 其他交由Spring管理-->
+    <context:component-scan base-package="com.bookstore.spring.controller"/>
+    <!--配置注解驱动 可以将request参数与绑定到controller参数上 -->
+    <mvc:annotation-driven/>
+
+    <!--静态资源映射-->
+    <mvc:resources mapping="/css/**" location="../webapp/statics/css/"/>
+    <mvc:resources mapping="/js/**" location="../webapp/statics/js/"/>
+    <mvc:resources mapping="/images/**" location="../webapp/statics/images/"/>
+    <mvc:default-servlet-handler/>
+
+    <!--显示层配置(前后缀 域名解析)-->
+    <!--JSP-->
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <property name="prefix" value="/views/JSP/"/> <!--html文件的位置 直接写webapp文件夹下的位置-->
+        <property name="order" value="1"/>
+<!--        <property name="suffix" value=".html"/>-->
+        <property name="suffix" value=".jsp"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+    </bean>
+    <!--HTML-->
+<!--    <bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">-->
+<!--        <property name="location" value="classpath:freemarker.properties"/>-->
+<!--    </bean>-->
+<!--    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
+<!--        <property name="freemarkerSettings" ref="freemarkerConfiguration"/>-->
+<!--        <property name="templateLoaderPath" value="/views/HTML/"/>-->
+<!--    </bean>-->
+<!--    <bean id="htmlViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">-->
+<!--        <property name="suffix" value=".html"/>-->
+<!--        <property name="order" value="0"/>-->
+<!--        <property name="contentType" value="text/html;charset=UTF-8"/>-->
+<!--    </bean>-->
+</beans>

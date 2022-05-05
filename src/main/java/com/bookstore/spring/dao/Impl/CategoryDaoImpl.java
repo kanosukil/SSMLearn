@@ -16,6 +16,6 @@ public class CategoryDaoImpl extends SqlSessionDaoSupport implements CategoryDao
 
     @Override
     public List<Category> selectAll() {
-        return this.getSqlSession().selectList("com.com.bookstore.spring.dao.CategoryDao.selectAll");
+        return this.getSqlSession().selectList("com.bookstore.spring.dao.CategoryDao.selectAll");
     }
 }

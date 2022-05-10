@@ -413,6 +413,12 @@
        <!--<property name="password" value="${password}"/>-->
    </bean>
    <!--此处使用的是 阿里的 druid 数据源-->
+   
+   <!--JDBC 的源-->
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DreiverManagerDataSource">
+       <property name="driverClassName" value="org.sqlite.JDBC" />
+       <property name="url" value="jdbc:sqlite:DataBase\bookstore.db">
+   </bean>
    ```
 
 2. 获取 SqlSessionFactory 对象

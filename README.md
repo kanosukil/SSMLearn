@@ -476,6 +476,38 @@
          </bean>
      ```
 
+> 不通过 Spring 配置文件配置 MyBatis
+>
+> ```xml
+> <?xml version="1.0" encoding="UTF-8" ?>
+> <!DOCTYPE configuration
+>         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+>         "http://mybatis.org/dtd/mybatis-3-config.dtd">
+> <configuration>
+>    <environments default="development">
+>        <!--environment元素体中包含事务管理和连接池的配置-->
+>        <environment id="development">
+>            <transactionManager type="JDBC"/>
+>            <!--transactionManager两个属性,JDBC(依赖JDBC实现业务管理) & Manager(Mybatis本身不进行事务管理,将事务交由Mybatis之外的框架进行管理)-->
+>            <dataSource type="POOLED"> <!--连接池(开发测试经常使用)-->
+>                <property name="driver" value="org.sqlite.JDBC"/>
+>                <property name="url" value="jdbc:sqlite:D:\code\code\Servlet\SpringBookStore\src\main\resources\DataBase\bookstore.db"/>
+>                <!--数据源url(本地.db文件即为路径)-->
+>                <!--<property name="username" value="${username}"/>-->
+>                <!--<property name="password" value="${password}"/>-->
+>            </dataSource>
+>        </environment>
+>    </environments>
+>     <!--mappers元素包含一组映射器(映射器的xml中包含SQL代码和映射定义信息)-->
+>     <mappers>
+>         <mapper resource="mapper/book-mapper.xml"/>
+>         <mapper resource="mapper/category-mapper.xml"/>
+>     </mappers>
+> </configuration>
+> ```
+>
+> > 详见 Servlet [Servlet/mybatis-config-annotation.xml at master · kanosukil/Servlet (github.com)](https://github.com/kanosukil/Servlet/blob/master/src/main/resources/mybatis-config-annotation.xml)
+
 ### Mapper.xml 的编写
 
 > 官方中文文档 :https://mybatis.org/mybatis-3/zh/sqlmap-xml.html
